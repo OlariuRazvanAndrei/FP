@@ -23,7 +23,7 @@ def read_nr() -> int:
 
 def main():
     n = read_nr()
-    print(micsoreaza(n))
+    print(f"The minimal number formed from {n} is {micsoreaza(n)}")
 
 main()
 
