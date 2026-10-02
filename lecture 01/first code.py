@@ -27,6 +27,11 @@ def get_flight_status(checksum : int) -> str:
         # none of the condition above
         return "CHECK"
 
+def create_report(flight_code : int,checksum : int,status : int) ->dict:
+    #python's dict is a collection of kye , value pairs, where keys are unique
+    return {"CODE" : flight_code, "CHECK" : checksum, "STATUS" : status}
+
+
 #print, input are builtin python 3 functions
 #input return a str
 operator_name = input("What is your name?")
@@ -34,6 +39,31 @@ operator_name = input("What is your name?")
 #using str concatenation
 print("Welcome to the control tower " + operator_name)
 
+#enoty python list
+flight_reports_list = []
+
+while True:
+    print()
+    print("1. read landing code information")
+    print("2. exit")
+
+    option = input(">")
+    if option == "1":
+        landing_code = int(input("Landing code: "))
+        checksum = calculate_checksum(landing_code)
+        status = get_flight_status(checksum)
+
+        flight_report = create_report(landing_code,checksum,status)
+        flight_reports_list.append(flight_report)
+
+        print(f"Landing code: {landing_code}, checksum: {checksum}, status: {status}")
+        pass
+    elif option == "2":
+        break
+    else:
+        print("Invalid option")
+
+""""
 #using python f-strings
 print( f"Welcome again to the control tower {operator_name}")
 
@@ -43,5 +73,5 @@ checksum = calculate_checksum(landing_code)
 print(checksum, get_flight_status(checksum))
 
 print(f"Flight with code {landing_code} has checksum {checksum} and status {get_flight_status(checksum)}")
-
+"""
 
