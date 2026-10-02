@@ -1,4 +1,5 @@
 def desc_cifre(x : int):
+    #puts x's digits in an array , in a mirrored way
     cif = []
     while x > 0 :
         cif.append(x % 10)
@@ -6,6 +7,7 @@ def desc_cifre(x : int):
     return cif
 
 def micsoreaza(n : int):
+    #sorts n's digits in ascending order
     rezultat = desc_cifre(n)
     rezultat.sort()
     numar = 0
@@ -15,7 +17,14 @@ def micsoreaza(n : int):
         i += 1
     return numar
 
-print(micsoreaza(98765))
-print(micsoreaza(113))
-print(micsoreaza(10))
-print(micsoreaza(12034))
+def read_nr() -> int:
+    #reads the input from the console
+    return int(input("Chose a number : "))
+
+def main():
+    n = read_nr()
+    print(micsoreaza(n))
+
+main()
+
+
