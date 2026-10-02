@@ -18,6 +18,15 @@ def calculate_checksum(flight_code : int) -> int :
         flight_code //= 10
     return code
 
+def get_flight_status(checksum : int) -> str:
+    if checksum % 3 == 0:
+        return "CLEARED"
+    elif checksum % 3 == 1:
+        return "MANULA CHECK"
+    else:
+        # none of the condition above
+        return "CHECK"
+
 #print, input are builtin python 3 functions
 #input return a str
 operator_name = input("What is your name?")
@@ -31,5 +40,8 @@ print( f"Welcome again to the control tower {operator_name}")
 landing_code = input("landing code : ")
 landing_code = int(landing_code)
 checksum = calculate_checksum(landing_code)
+print(checksum, get_flight_status(checksum))
+
+print(f"Flight with code {landing_code} has checksum {checksum} and status {get_flight_status(checksum)}")
 
 
