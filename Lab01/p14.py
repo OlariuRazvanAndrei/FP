@@ -1,28 +1,72 @@
-def secventa(n: int):
-    cnt = 0
-    numar = 1                      # numar e numarul curent
-    while True:                    # cnt , pe unde ne aflam in sir (index)
-        if numar == 1:             #temp, folosit doar la descompunere , cu d
-            cnt += 1               #marime ; cate nr afisez per pas
-            if cnt == n:
-                return 1
-        else:
-            temp = numar
-            d = 2
-            while temp > 1:
-                if temp % d == 0:
-                    while temp % d == 0:
-                        temp //= d
-                    if d == numar:
-                        marime = 1
-                    else:
-                        marime = d
-                    if n <= cnt + marime:      # elem. n apartine in intervalul asta
-                        return d
-                    cnt += marime
-                d += 1
-        numar += 1
+from math import sqrt
 
-print(secventa(1))
-print(secventa(4))
-print(secventa(12))
+
+def is_prime(n: int) -> bool:
+    if n < 2:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    for d in range(3, int(sqrt(n)) + 1, 2):
+        if n % d == 0:
+            return False
+    return True
+
+
+def block_length(k: int) -> int:
+    # number of terms the natural number k contributes to the sequence
+    if k == 1 or is_prime(k):
+        return 1
+    length = 0
+    rest = k
+    d = 2
+    while rest > 1:
+        if rest % d == 0:
+            length += d
+            while rest % d == 0:
+                rest //= d
+        d += 1
+    return length
+
+
+def term_in_block(k: int, position: int) -> int:
+    # the term found at the given 1-based position inside the block of k
+    if k == 1 or is_prime(k):
+        return k
+    rest = k
+    d = 2
+    while True:
+        if rest % d == 0:
+            if position <= d:
+                return d
+            position -= d
+            while rest % d == 0:
+                rest //= d
+        d += 1
+
+
+def nth_term(n: int) -> int:
+    # the n-th element of the sequence, without storing its elements
+    position = n
+    k = 1
+    while position > block_length(k):
+        position -= block_length(k)
+        k += 1
+    return term_in_block(k, position)
+
+
+def read_index() -> int:
+    return int(input("Write the index n (n >= 1): "))
+
+
+def print_result(n: int, term: int):
+    print(f"The element at position {n} in the sequence is {term}")
+
+
+def main():
+    n = read_index()
+    print_result(n, nth_term(n))
+
+
+main()
