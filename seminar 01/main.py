@@ -8,15 +8,15 @@ def create_city(city_name: str, city_pop:int, city_county:str) ->list:
 
 
 def get_city_name(city:list) -> str:
-    return city[0]
+    return city["name "]
 
 
 def get_city_pop(city:list) -> int:
-    return city[1]
+    return city["population "]
 
 
 def get_city_county(city:list) -> int:
-    return city[2]
+    return city["county "]
 
 
 def menu():
@@ -44,13 +44,22 @@ def sort_by_pop(city_list: list) -> None:
                 city_list[i], city_list[j] = city_list[j], city_list[i]
 
 
+def get_random(random: int , city_list) -> None:
+    for i in range(random):
+        city = create_city("name" + str(i) , random(1 , 100) * 1000 , "name" + str(i))
+        city_list.append(city)
+
 #===============================================================
 #                         MAIN
 #===============================================================
 
 
 def main():
-    city_list = [["Targu Neamt" , 20_000 , "Neamt"] , ["Cluj-Napoca" , 400000 , "Cluj"] , ["Brasov" , 300_000 , "Brasov"] ]
+    city_list = [
+        {"name": "Targu Neamt", "population": 20_000, "county": "Neamt"},
+        {"name": "Cluj-Napoca", "population": 400000, "county": "Cluj"},
+        {"name": "Brasov", "population": 250_000, "county": "Brasov"}  # am completat restul pentru Brașov
+    ]
     while True:
         menu()
         op = int(input("Select an option: "))
@@ -74,7 +83,9 @@ def main():
             city = create_city(cname, cpop, ccounty)
             add_city(city_list , city)
         elif op == 5:
-            print("To be done")
+            random = input("Give me a number of cityes to add")
+            get_random(random)
+
 
 
 main()
