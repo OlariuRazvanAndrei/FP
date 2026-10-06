@@ -1,22 +1,25 @@
+import random
+
+
 #===============================================================
 #                        FUNCTIONS
 #===============================================================
 
 
-def create_city(city_name: str, city_pop:int, city_county:str) ->list:
-    return[city_name, city_pop, city_county]
+def create_city(city_name: str, city_pop: int, city_county: str) -> dict:
+    return {"name": city_name, "population": city_pop, "county": city_county}
 
 
-def get_city_name(city:list) -> str:
-    return city["name "]
+def get_city_name(city: dict) -> str:
+    return city["name"]
 
 
-def get_city_pop(city:list) -> int:
-    return city["population "]
+def get_city_pop(city: dict) -> int:
+    return city["population"]
 
 
-def get_city_county(city:list) -> int:
-    return city["county "]
+def get_city_county(city: dict) -> str:
+    return city["county"]
 
 
 def menu():
@@ -24,7 +27,7 @@ def menu():
     print("2. Display the list of cities.")
     print("3.Search for a city (using partial, case-insensitive).")
     print("4.Add a city from the console")
-    print("5. Add a number of random cities to the list (the number is read from the console).")
+    print("5. Add a number of random cities to the list (the number is reafd from the console).")
     print("6.quit")
 
 
@@ -33,7 +36,7 @@ def display_cities(city_list:list) -> None:
         print(city)
 
 
-def add_city(city_list: list , city: str) -> None:
+def add_city(city_list: list, city: dict) -> None:
     city_list.append(city)
 
 
@@ -44,10 +47,10 @@ def sort_by_pop(city_list: list) -> None:
                 city_list[i], city_list[j] = city_list[j], city_list[i]
 
 
-def get_random(random: int , city_list) -> None:
-    for i in range(random):
-        city = create_city("name" + str(i) , random(1 , 100) * 1000 , "name" + str(i))
-        city_list.append(city)
+def get_random(n: int, city_list: list) -> None:
+    for i in range(n):
+        city = create_city("name" + str(i), random.randint(1, 100) * 1000, "county" + str(i))
+        add_city(city_list, city)
 
 #===============================================================
 #                         MAIN
@@ -83,8 +86,8 @@ def main():
             city = create_city(cname, cpop, ccounty)
             add_city(city_list , city)
         elif op == 5:
-            random = input("Give me a number of cityes to add")
-            get_random(random)
+            n = int(input("Give me a number of cities to add: "))
+            get_random(n, city_list)
 
 
 
